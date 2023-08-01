@@ -1,7 +1,16 @@
+import Navigations from "./components/Navigations/Navigations";
+import Products from "./components/Products/Products";
+import Recommended from "./components/Recommended/Recommended";
 
 function App() {
   return (
-    <h1>Hello World</h1>
+    <>
+
+    <Navigations/>
+    <Products/>
+    <Recommended/>
+
+    </>
   );
 }
 
