@@ -6,6 +6,7 @@ nav {
     padding: 20px;
     margin-left: 2rem;
     z-index: 999;
+    height: 110px;
 }
 
 input {
@@ -24,4 +25,22 @@ input {
     height: 1.5rem;
     margin-left: 2rem;
     color: #494949;
+}
+
+.sticky {
+    position: -webkit-sticky;
+	position: sticky;
+	top: 0;
+}
+
+.logo-img{
+    height: 10rem;
+
+}
+.logo-container {
+    margin-bottom: 1rem;
+}
+
+.logo-container  {
+    margin-top: 1.4rem;
 }
