@@ -9,6 +9,10 @@
     margin-top: 20px;
     font-size: 20px;
     font-family: sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+   
+    align-content: space-around;
 }
 
 .btns {
@@ -21,3 +25,4 @@
     color: #323232;
     cursor: pointer;
 }
+
