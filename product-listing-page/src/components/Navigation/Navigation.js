@@ -9,9 +9,7 @@ function Navigation({handleInputChange, query}) {
   return (
     
     <nav className='sticky'>
-        <div className='logo-container'>
-            <img className='logo-img' src={logo} alt='logo'/>
-        </div>
+        
       <div className='nav-container'>
       <input
           className="search-input"
