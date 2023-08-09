@@ -14,9 +14,10 @@ import products from "./db/data.js";
 function App() {
   const [selectedCategory,setSelectedCategory] = useState(null);
   const [query,setQuery]= useState("");
-  const [sortData, setSortData] = useState("lowtohigh");
+  const [data, setData] = useState(products);
+  const [order, setOrder] = useState("");
 
- 
+
   // ---------Input Filter---------
 
   const handleInputChange = (event) => {
@@ -41,11 +42,11 @@ function App() {
    // ---------Sorting Filter---------
 
    const handleSortChange = (event) => {
-    setSortData(event.target.value)
+    setOrder(event.target.value)
    };
 
 
-   function FilteredData(products, query, selected, sorted){
+   function FilteredData(products, query, selected, order){
     let filteredProducts = products
     
     // Filtering Inputs Items
@@ -57,17 +58,25 @@ function App() {
 
     // Selected Filter
     if (query) {
-      console.log('med');
+     
       filteredProducts = filteredProducts.filter(({category, color, company, newPrice, title}) => category === query || 
       color === query || company === query || newPrice === query || title === query)
-      console.log(filteredProducts);
     }
-     if (sorted) {
-      console.log('sorted');
-      filteredProducts= [...filteredProducts].sort((a,b)=>{
-        return sortData === 'lowtohigh' ? a.newPrice - b.newPrice : b.newPrice - a.newPrice & setSortData(filteredProducts)
-     })
-     }
+
+    // Sorting Filter
+    if (order === "AtoZ") {
+      filteredProducts = [...filteredProducts].sort((a,b) => 
+      a.title.localeCompare(b.title))
+    } else if (order === "ZtoA") {
+      filteredProducts = [...filteredProducts].sort((a,b) => 
+      b.title.localeCompare(a.title))
+    } else if (order === "lowtohigh") {
+      filteredProducts = [...filteredProducts].sort((a,b) => 
+      a.newPrice - b.newPrice)
+    } else if (order === "hightolow") {
+      filteredProducts = [...filteredProducts].sort((a,b) => 
+      b.newPrice - a.newPrice)
+    }
 
     return filteredProducts.map(({img, title,star, reviews, prevPrice, newPrice})=>(
       <Card
@@ -81,10 +90,8 @@ function App() {
       />
     ));
   }
-  const result = FilteredData(products,selectedCategory,query)
-  console.log(result);
+  const result = FilteredData(products,selectedCategory,query, order)
   
-  console.log(selectedCategory);
   return (
     <>
     <div className="body">
