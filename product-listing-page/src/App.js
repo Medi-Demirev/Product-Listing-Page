@@ -91,7 +91,7 @@ function App() {
     ));
   }
   const result = FilteredData(products,selectedCategory,query, order)
-  
+
   return (
     <>
     <div className="body">
@@ -99,7 +99,7 @@ function App() {
     
     <Sidebar handleChange={handleChange}/>
     <Navigation query={query} handleInputChange={handleInputChange}/>
-    <Recommended handleClick={handleClick}/>
+    <Recommended handleClick={handleClick} result={result} handleSortChange={handleSortChange}/>
     <Sort_menu handleSortChange={handleSortChange}/>
     <Products result={result}/>
     <Footer/>
