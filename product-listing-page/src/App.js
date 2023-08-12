@@ -4,21 +4,33 @@ import Products from "./components/Products/Products";
 import Recommended from "./components/Recommended/Recommended";
 import Sidebar from "./components/Sidebar/Sidebar";
 import Card from "./components/Card/Card";
-import Sort_menu from "./components/Sort/Sort_menu";
 import Footer from "./components/Footer/Footer";
+import { v4 as uuidv4 } from 'uuid';
 import "./index.css";
 
 // Database
-import products from "./db/data.js";
+//import products from "./server/data.json";
+
 
 function App() {
   const [selectedCategory,setSelectedCategory] = useState(null);
   const [query,setQuery]= useState("");
-  const [data, setData] = useState(products);
+  const [data, setData] = useState();
   const [order, setOrder] = useState("");
+  const [post, setPost] = useState([])
+  const [products,setProducts] = useState([])
+  const Id=uuidv4();
 
+  useEffect(()=> {
+    const fetchData = async () => {
+      const res = await fetch('http://localhost:5000/api')
+      const json = await res.json()
+      setProducts(json)
+    }
+  fetchData()
+},[]) 
 
-  // ---------Input Filter---------
+// ---------Input Filter---------
 
   const handleInputChange = (event) => {
     setQuery(event.target.value)
@@ -45,6 +57,7 @@ function App() {
     setOrder(event.target.value)
    };
 
+   
 
    function FilteredData(products, query, selected, order){
     let filteredProducts = products
@@ -87,6 +100,7 @@ function App() {
       reviews={reviews}
       prevPrice={prevPrice}
       newPrice={newPrice}
+      products={products}
       />
     ));
   }
@@ -95,12 +109,9 @@ function App() {
   return (
     <>
     <div className="body">
-
-    
     <Sidebar handleChange={handleChange}/>
     <Navigation query={query} handleInputChange={handleInputChange}/>
     <Recommended handleClick={handleClick} result={result} handleSortChange={handleSortChange}/>
-    <Sort_menu handleSortChange={handleSortChange}/>
     <Products result={result}/>
     <Footer/>
     </div>
