@@ -1,29 +1,30 @@
-import React from 'react'
-import {BsFillBagHeartFill} from 'react-icons/bs';
+import React from "react";
+import { BsFillBagHeartFill } from "react-icons/bs";
+import { AiFillStar } from "react-icons/ai";
 
-const Card =({img,title,star,reviews,prevPrice,newPrice})=> {
+const Card = ({ img, title, star, reviews, prevPrice, newPrice }) => {
   return (
-    <section className='card'>
-            <img className='card-img' src={img} alt={title}/>
-            <div className='card-details'>
-            <h3 className='card-title'>{title}</h3>
-            <section className='card-reviews'>
-            {star} {star} {star} {star}
-            <span className='total-reviews'>{reviews}</span>
-            </section>
-            <section className='card-price'>
-                <div className='price'>
-                    <del>{prevPrice}</del> ${newPrice}
-                </div>
-                <div className='bag'>
-                <BsFillBagHeartFill className='bag-icon'/>
-                </div>
-
-            </section>
-
-            </div>
+    <section className="card">
+      <img className="card-img" src={img} alt={title} />
+      <div className="card-details">
+        <h3 className="card-title">{title}</h3>
+        <section className="card-reviews">
+          {[...Array(Number(star))].map(() => {
+            return <AiFillStar className="rating-star" key={Math.random()} />;
+          })}
+          <span className="total-reviews">{reviews}</span>
         </section>
-  )
-}
+        <section className="card-price">
+          <div className="price">
+            <del>{prevPrice}</del> ${newPrice}
+          </div>
+          <div className="bag">
+            <BsFillBagHeartFill className="bag-icon" />
+          </div>
+        </section>
+      </div>
+    </section>
+  );
+};
 
 export default Card;
