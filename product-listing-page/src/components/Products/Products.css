@@ -46,3 +46,28 @@
     font-size: 25px;
 
 }
+
+.load-btn {
+background-color: red;
+display: flex;
+justify-content:center;
+align-items: center;
+width: 80px;
+height: 50px;
+margin-bottom: 90px;
+margin-left: 990px;
+background: transparent;
+border: none;
+border: 0.6px solid #ccc;
+border-radius:5px ;
+cursor: pointer;
+
+}
+
+.products-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items:flex-start;
+    margin-bottom: 50px;
+}
