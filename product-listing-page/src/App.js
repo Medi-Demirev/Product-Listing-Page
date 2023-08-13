@@ -16,19 +16,39 @@ function App() {
   const [selectedCategory,setSelectedCategory] = useState(null);
   const [query,setQuery]= useState("");
   const [data, setData] = useState();
+  const [count,setCount]= useState();
   const [order, setOrder] = useState("");
   const [post, setPost] = useState([])
-  const [products,setProducts] = useState([])
+  const [products,setProducts] = useState([]);
+  const [limit, setLimit] = useState(5)
   const Id=uuidv4();
+
+  useEffect(()=>{
+    const fetchAllData = async () => {
+      const res = await fetch('http://localhost:5000/Allproducts')
+      const allProducts = await res.json()
+      setData(allProducts)
+      setCount(allProducts.length)
+    }
+    fetchAllData()
+  },[])
+  
 
   useEffect(()=> {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:5000/api')
+      const res = await fetch('http://localhost:5000/products?page=1&limit='+limit)
       const json = await res.json()
       setProducts(json)
     }
-  fetchData()
-},[]) 
+    fetchData()
+    console.log(products);
+},[limit]) 
+const loadMore = () => {
+
+  
+  setLimit(limit+5)
+}
+
 
 // ---------Input Filter---------
 
@@ -104,7 +124,7 @@ function App() {
       />
     ));
   }
-  const result = FilteredData(products,selectedCategory,query, order)
+  const result = FilteredData(products,selectedCategory,query, order, limit)
 
   return (
     <>
@@ -112,7 +132,7 @@ function App() {
     <Sidebar handleChange={handleChange}/>
     <Navigation query={query} handleInputChange={handleInputChange}/>
     <Recommended handleClick={handleClick} result={result} handleSortChange={handleSortChange}/>
-    <Products result={result}/>
+    <Products result={result} loadMore={loadMore} limit={limit} count={count}/>
     <Footer/>
     </div>
     </>
